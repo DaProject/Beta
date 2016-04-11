@@ -1,0 +1,12 @@
+- No poder moure't quan el player estar atacant, pero que sí es desplaci al fer l'animació d'atac.
+- Crear una animacio de getDamaged, tan pel player com per l'enemy. Falta feedback de quan fas mal, i de quan t'en fan.
+- Crear totes les animacions del player, i de l'enemic.
+- Evitar la "resurrecció". El boss t'estuneja tot i haver mort. Després de l'stun, tornes a idle i et pots moure i matar, tot i estar a 0 de vida.
+- UI per mostrar quines habilitats tens.
+- UI per mostrar el CD de les habilitats.
+- Valors de mal del player.
+- Valors de mal de l'enemic.
+- Quan el jugador torna a la seva posició, despres de realitzar attack01 (o potser altres), es situa sobre l'enemic.
+- Revisar els comentaris del codi.
+- Moure el player per forces, una altre vegada.
+- Revisar la AnimationDisplacement(), normalitzar els vectors.
