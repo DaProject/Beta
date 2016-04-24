@@ -40,7 +40,7 @@ public class Stunning : MonoBehaviour {
     {
         if (other.tag == "Player" && enemyManager.playerStunned)
         {
-            other.GetComponent<PlayerManagerBackup>().setStunned();
+            other.GetComponent<PlayerManager>().setStunned();
         }
     }
 }

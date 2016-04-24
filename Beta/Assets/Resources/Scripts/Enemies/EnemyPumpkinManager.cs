@@ -72,7 +72,7 @@ public class EnemyPumpkinManager : MonoBehaviour
     public ParticleSystem stunThunderParticle;
 
     // Scripts calls
-    PlayerManagerBackup playerManager;                // PlayerManager script
+    PlayerManager playerManager;                // PlayerManager script
 
 	// Use this for initialization
 	void Start ()
@@ -194,7 +194,7 @@ public class EnemyPumpkinManager : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");                    // Finds the gameobject with the tag "Player".
 
-        playerManager = player.GetComponent<PlayerManagerBackup>();             // Gets the script PlayerManager of the player.
+        playerManager = player.GetComponent<PlayerManager>();             // Gets the script PlayerManager of the player.
         pointsText = GameObject.FindGameObjectWithTag("Score");
         score = pointsText.GetComponent<PointCounter>();
 

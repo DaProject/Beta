@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerManager playerManager;
     private PlayerAnimation playerAnimation;
     private PlayerController playerController;
+    private CharacterBehaviour characterBehaviour;
 
     public int attackDamage;
 
@@ -27,8 +28,7 @@ public class PlayerAttack : MonoBehaviour
         playerManager = GetComponent<PlayerManager>();
         playerAnimation = GetComponent<PlayerAnimation>();
         playerController = GetComponent<PlayerController>();
-
-        //trailActivation = false;
+        characterBehaviour = GetComponent<CharacterBehaviour>();
     }
 
     public void Attack10(int damageDealt)
@@ -37,12 +37,9 @@ public class PlayerAttack : MonoBehaviour
 
         trailActivation = true;
 
-        playerManager.attack10Collider.enabled = true;
+        playerManager.attack10Collider.enabled = true;          // Activates the collider of the Attack10 attack.
 
-        //playerController.playerDisplacementSpeed = playerController.AnimationDisplacement(playerController.distanceAttack10, playerAnimation.tempAttack10);
-        //Debug.LogFormat(string.Format("localPosition.z: {0}, distanceAttack10: {1}, tempAttack: {2} displacementSpeed: {3}", playerController.trans.localPosition.z, playerController.distanceAttack10, playerAnimation.tempAttack10, playerController.playerDisplacementSpeed));
-
-        playerAnimation.Attack10Animation();
+        playerAnimation.Attack10Animation();                    // Calls the Attack10Animation function from the PlayerAnimation script.
 
         attackDamage = damageDealt;
     }
@@ -51,13 +48,11 @@ public class PlayerAttack : MonoBehaviour
     {
         Debug.Log("Attack01");
 
-        playerManager.attack01Collider.enabled = true;
+        playerManager.attack01Collider.enabled = true;          // Activates the collider of the Attack10 attack.
 
         playerManager.attack01Collider.radius += attack10ColliderRadius * Time.deltaTime;        // Makes the attack01Collider get bigger during the attack01Behaviour.
 
-        //playerController.playerDisplacementSpeed = playerController.AnimationDisplacement(playerController.distanceAttack01, playerAnimation.tempAttack01);
-
-        playerAnimation.Attack01Animation();
+        playerAnimation.Attack01Animation();                    // Calls the Attack01Animation function from the PlayerAnimation script.
 
         attackDamage = damageDealt;
     }
@@ -66,11 +61,9 @@ public class PlayerAttack : MonoBehaviour
     {
         Debug.Log("Sword10");
 
-        playerManager.sword10Collider.enabled = true;
+        playerManager.sword10Collider.enabled = true;       // Activates the collider of the Attack10 attack.
 
-        //playerController.playerDisplacementSpeed = playerController.AnimationDisplacement(playerController.distanceSword10, playerAnimation.tempSword10);
-
-        playerAnimation.Sword10Animation();
+        playerAnimation.Sword10Animation();                 // Calls the Sword10Animation function from the PlayerAnimation script.
 
         attackDamage = damageDealt;
     }
@@ -79,18 +72,13 @@ public class PlayerAttack : MonoBehaviour
     {
         Debug.Log("Chain01");
 
-        //playerManager.chain01Collider.enabled = true;
-
-        //playerController.playerDisplacementSpeed = playerController.AnimationDisplacement(playerController.distanceChain01, playerAnimation.tempChain01);
-
-        playerAnimation.Chain01Animation();
+        playerAnimation.Chain01Animation();                 // Calls the Chain10Animation function from the PlayerAnimation script.
 
         attackDamage = damageDealt;
     }
 
     public void Dash()
     {
-        //playerController.playerDisplacementSpeed = playerController.AnimationDisplacement(playerController.distanceDash, playerAnimation.tempDash);
         Debug.Log("dashing");
         playerAnimation.DashAnimation();
         playerManager.playerSphereCollider.enabled = false;
