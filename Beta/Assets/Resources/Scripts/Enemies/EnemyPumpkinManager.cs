@@ -70,6 +70,7 @@ public class EnemyPumpkinManager : MonoBehaviour
     public ParticleSystem hitThunderParticle;
     public ParticleSystem hitTextureParticle;
     public ParticleSystem stunThunderParticle;
+	public ParticleSystem blood;
 
     // Scripts calls
     PlayerManagerBackup playerManager;                // PlayerManager script
@@ -216,6 +217,8 @@ public class EnemyPumpkinManager : MonoBehaviour
 
         hitTextureParticle.Stop();
 
+		blood.Stop(true);
+
         //enemyAudio = GetComponent<AudioSource>();                             // Gets the AudioSource component from the enemy.
 
         //rigidBody = GetComponent<Rigidbody>();                                // Gets the rigidbody component from the enemy.
@@ -262,6 +265,11 @@ public class EnemyPumpkinManager : MonoBehaviour
             hitTextureParticle.Stop();
         }
 
+		if (blood.isPlaying)
+		{
+			blood.Stop(true);
+		}
+
         state = EnemyStates.ACTIVE;                             // Goes to the ACTIVE state.
     }
 
@@ -300,6 +308,8 @@ public class EnemyPumpkinManager : MonoBehaviour
         {
             hitTextureParticle.Play();
         }
+
+			blood.Play(true);
 
         currentHealth -= damage;                                // Applies the damage recieved
 

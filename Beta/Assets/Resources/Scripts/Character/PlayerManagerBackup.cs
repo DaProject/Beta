@@ -82,7 +82,9 @@ public class PlayerManagerBackup : MonoBehaviour
     public Image chain10Sprite;
 	public Color flashColor;                        // The color of the damageImage.
 
-	// Timers
+    public GameObject crackGround;
+
+    // Timers
     [Header("Timers")]
 	public float temp;
 	public float tempDamage;                        // Counter that determinates how much time the player has to be in the DAMAGED state.
@@ -137,6 +139,8 @@ public class PlayerManagerBackup : MonoBehaviour
     public Text lostText;
     public Text cooldownSword10;
 
+
+    public ParticleSystem slashFX;
 
     ChainAnimTrigger chainTransition;
 
@@ -279,6 +283,8 @@ public class PlayerManagerBackup : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha2) && chain10Active) setChain01();                                       // If the chain mode is active, goes to the setChain01.
 
         if (Input.GetKeyDown(KeyCode.LeftShift)  && (DashResistanceSlider.value >= resistancePerDash)) setDash();       // Calls the setDash function if left shift key is pressed.
+
+        
     }
 
     private void Attack10Behaviour()
@@ -290,6 +296,11 @@ public class PlayerManagerBackup : MonoBehaviour
         attackStateCounter -= Time.deltaTime;           // Starts the countdown after the attack has been done.
 
         if (attackStateCounter <= 0) setIdle();         // Goes back to setIdle if the player has not attack for a small amount of time.
+
+        if (!slashFX.isPlaying)
+        {
+            slashFX.Play(true);
+        }
     }
     
     private void Attack01Behaviour()
@@ -302,7 +313,10 @@ public class PlayerManagerBackup : MonoBehaviour
 
         chainTransition.chainAnim = true;
 
+
         if (attackStateCounter <= 0) setIdle();
+
+
     }
     
     private void Sword10Behaviour()
@@ -431,7 +445,9 @@ public class PlayerManagerBackup : MonoBehaviour
         attackAction = GetComponentInChildren<BoxCollider>();      	        // Gets the BoxCollider of the PlaceHolder_Sword children.
 		attack01ColliderRadius = attack01Collider.radius;
 
-        chainTransition = GetComponentInChildren<ChainAnimTrigger>();       
+        chainTransition = GetComponentInChildren<ChainAnimTrigger>();
+
+        crackGround.SetActive(false);
 
         playerAudio = GetComponent<AudioSource>();          		        // Gets the component AudioSource from the player.
 
@@ -462,7 +478,8 @@ public class PlayerManagerBackup : MonoBehaviour
 
         state = PlayerStates.AWAKE;                         		        // Cals the AWAKE state.
 
-	}
+        slashFX.Stop();
+    }
 
 	public void setIdle()
     {
@@ -485,14 +502,22 @@ public class PlayerManagerBackup : MonoBehaviour
 
         state = PlayerStates.IDLE;                                                          // Calls the IDLE state.
 
+
         timeStunned = timeStunnedIni;
-	}
+
+
+        if (slashFX.isPlaying)
+        {
+            slashFX.Stop(true);
+        }
+        
+    }
 
     public void setAttack10()
     {
         Debug.Log("Attack10");
 
-        
+        crackGround.SetActive(true);
 
         ForcesDeactivation();
 
@@ -506,6 +531,12 @@ public class PlayerManagerBackup : MonoBehaviour
 		playerAudio.Play();
 
         state = PlayerStates.ATTACK_10;                             // Goes to the attack10 state.
+
+
+        if (!slashFX.isPlaying)
+        {
+            slashFX.Play(true);
+        }
     }
     
     public void setAttack01()
@@ -524,6 +555,11 @@ public class PlayerManagerBackup : MonoBehaviour
 
 		playerAudio.clip = swordSwipeClip;
 		playerAudio.Play();
+
+        if (!slashFX.isPlaying)
+        {
+            slashFX.Play(true);
+        }
 
         state = PlayerStates.ATTACK_01;
     }
