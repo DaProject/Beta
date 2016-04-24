@@ -9,7 +9,7 @@ public class AttackAction : MonoBehaviour
         if (other.tag == "Enemy")
         {
             Debug.Log("EnemyAttacked");
-            other.GetComponent<EnemyPumpkinManager>().setDamaged(transform.root.GetComponent<PlayerManagerBackup>().attackDamage);
+            other.GetComponent<EnemyPumpkinManager>().setDamaged(transform.root.GetComponent<PlayerAttack>().attackDamage);
 
            
         }

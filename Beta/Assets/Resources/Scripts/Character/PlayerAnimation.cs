@@ -4,34 +4,47 @@ using System.Collections;
 public class PlayerAnimation : MonoBehaviour
 {
     public PlayerManager playerManager;
-    public PlayerController playerController;
     public PlayerAttack playerAttack;
+    public CharacterBehaviour characterBehaviour;
 
-    public float tempAttack10;                      // Counter that reflects how much the animation of the attack10 longs.
-    public float tempSword10;                       // Counter that reflects how much the animation of the sword10 longs.
-    public float tempSword20;                       // Counter that reflects how much the animation of the sword20 longs.
-    public float tempAttack01;                      // Counter that reflects how much the animation of the attack01 longs.
-    public float tempChain01;                       // Counter that reflects how much the animation of the chain10 longs.
-    public float tempChain02;                       // Counter that reflects how much the animation of the chain02 longs.
-    public float tempSlash;                         // Counter that reflects how much the animation of the slash longs.
-    public float tempDash;                          // Counter that determinates how much time the player has to be in the DASH state.
+    public float attackRatio;                                           // Counter used to get the lenght of the diferent attack animations.
+
+    public bool walking;                                                // Bool for the walking animation.
 
     // Animations
-    public Animator anim;                                  // The animator component from the player.
+    public Animator anim;                                               // The animator component from the player.
 
-    public void Start()
+    void Start()
     {
-        playerManager = GetComponent<PlayerManager>();
-        playerController = GetComponent<PlayerController>();
-        playerAttack = GetComponent<PlayerAttack>();
+        playerManager = GetComponent<PlayerManager>();                  // Gets the PlayerManager script.
+        playerAttack = GetComponent<PlayerAttack>();                    // Gets the PlayerAttack script.
+        characterBehaviour = GetComponent<CharacterBehaviour>();        // Gets the CharacterBehavior script.
         anim = GetComponent<Animator>();
+
+        walking = false;
+    }
+
+   void Update()
+    {
+        if (characterBehaviour.moveDirection.x != 0 || characterBehaviour.moveDirection.z != 0)     // Checks if the player is moving
+        {
+            walking = true;
+            anim.SetBool("IsWalking", walking);
+        }
+        else
+        {
+            walking = false;
+            anim.SetBool("IsWalking", walking);
+        }
     }
 
     public void Attack10Animation()
     {
-        anim.SetTrigger("Attack10");
+        anim.SetTrigger("Attack10");                                    // Triggers the condition for the Attack10 animation.
 
-        playerManager.attackStateCounter = tempAttack10;
+        attackRatio = anim.GetCurrentAnimatorClipInfo(0).Length;        // Gets the lenght of the current animation.
+
+        playerManager.attackStateCounter = attackRatio;
 
         Debug.Log("playing Attack10Animation");
     }
@@ -40,7 +53,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim.SetTrigger("Attack01");
 
-        playerManager.attackStateCounter = tempAttack01;
+        attackRatio = anim.GetCurrentAnimatorClipInfo(0).Length;        // Gets the lenght of the current animation.
+
+        playerManager.attackStateCounter = attackRatio;                 // Gets the lenght of the current animation.
 
         Debug.Log("playing Attack01Animation");
     }
@@ -49,7 +64,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim.SetTrigger("Sword10");
 
-        playerManager.attackStateCounter = tempSword10;
+        attackRatio = anim.GetCurrentAnimatorClipInfo(0).Length;        // Gets the lenght of the current animation.
+
+        playerManager.attackStateCounter = attackRatio;                 // Gets the lenght of the current animation.
 
         Debug.Log("playing Sword10Animation");
     }
@@ -58,16 +75,20 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim.SetTrigger("Chain01");
 
-        playerManager.attackStateCounter = tempChain01;
+        attackRatio = anim.GetCurrentAnimatorClipInfo(0).Length;        // Gets the lenght of the current animation.
+
+        playerManager.attackStateCounter = attackRatio;                 // Gets the lenght of the current animation.
 
         Debug.Log("playing Chain01Animation");
     }
 
     public void DashAnimation()
     {
-        //anim.SetTrigger("Dash");
+        anim.SetTrigger("Dash");
 
-        playerManager.attackStateCounter = tempDash;
+        attackRatio = anim.GetCurrentAnimatorClipInfo(0).Length;        // Gets the lenght of the current animation.
+
+        playerManager.attackStateCounter = attackRatio;                 // Gets the lenght of the current animation.
 
         Debug.Log("playing DashAnimation");
     }

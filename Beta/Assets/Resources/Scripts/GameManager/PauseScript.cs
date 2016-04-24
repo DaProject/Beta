@@ -7,6 +7,13 @@ public class PauseScript : MonoBehaviour
     public GameObject pauseMenu;
     private bool isEnabled = false;
 
+    void Start()
+    {
+        Time.timeScale = 1.0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     void Update()
     {
         // Enable pause menu
@@ -16,6 +23,8 @@ public class PauseScript : MonoBehaviour
             isEnabled = true;
             Time.timeScale = 0.0f;
             Debug.Log("Paused");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         // Disable pause menu
@@ -31,6 +40,8 @@ public class PauseScript : MonoBehaviour
         pauseMenu.SetActive(false);
         isEnabled = false;
         Debug.Log("Unpaused");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
 }

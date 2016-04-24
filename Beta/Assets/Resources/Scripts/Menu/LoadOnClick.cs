@@ -3,11 +3,14 @@ using System.Collections;
 
 public class LoadOnClick : MonoBehaviour
 {
-    public PauseScript pauseScript;
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 
     public void LoadScene(int level)
 	{
-        pauseScript.Unpause();
 		Application.LoadLevel(level);
 	}
 }
